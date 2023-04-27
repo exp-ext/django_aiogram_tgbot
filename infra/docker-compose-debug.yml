@@ -23,7 +23,7 @@ services:
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
     container_name: backend_wsgi
     restart: always
-    command: ./config/wsgi/entrypoint.sh
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - static_volume:/app/static/:rw
       - media_volume:/app/media/:rw
@@ -46,7 +46,7 @@ services:
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
     container_name: backend_asgi
     restart: always
-    command: ./config/asgi/entrypoint.sh
+    command: uvicorn backend.asgi:application --host 0.0.0.0 --port 8080 --reload --log-level info
     volumes:
       - static_volume:/app/static/:rw
       - media_volume:/app/media/:rw

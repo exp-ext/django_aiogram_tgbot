@@ -8,9 +8,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./:/etc/nginx/templates:rw
-      - ./conf/:/etc/letsencrypt/:ro
-      - ./www/:/var/www/certbot/:ro
+      - ./:/etc/nginx/templates
+      - ./conf/:/etc/letsencrypt/
+      - ./www/:/var/www/certbot/
     env_file:
       - ../.env
 
@@ -19,6 +19,5 @@ services:
     container_name: backend_certbot
     restart: unless-stopped    
     volumes:
-      - ./conf/:/etc/letsencrypt/:rw
-      - ./www/:/var/www/certbot/:rw
-
+      - ./conf/:/etc/letsencrypt/
+      - ./www/:/var/www/certbot/

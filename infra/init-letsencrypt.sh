@@ -103,9 +103,9 @@ for domain in ${!domains[*]}; do
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal \
-    --non-interactive" certbot
+    --non-interactive" certbot   
 
-    sudo docker compose -f $data_path/docker-compose.yml down
-    
   fi
 done
+
+sudo docker compose -f $data_path/docker-compose.yml down
