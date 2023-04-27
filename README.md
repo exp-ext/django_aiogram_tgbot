@@ -1,14 +1,12 @@
-Template for developing Telegram bot in Django + Aiogram on ASGI server.
-
 <h2>django_aiogram_tgbot</h2>
+
+<p>Template for developing Telegram bot in Django + Aiogram on ASGI server.</p
 
 ![статус](https://github.com/exp-ext/django_aiogram_tgbot/actions/workflows/backend.yml/badge.svg?event=push)
 
 <p align="center">
-<img src="https://github.com/exp-ext/django_aiogram_tgbot/blob/master/backend/static/img/top-banner.jpg?raw=true" width="1200">
+<img src="https://github.com/exp-ext/django_aiogram_tgbot/blob/main/backend/static/img/top-banner.jpg?raw=true" width="1200">
 </p>
-
-<p>Template for developing Telegram bot in Django + Aiogram on ASGI server.</p>
 <hr />
 <h3>Technology Stack</h3>
 <ul>
@@ -31,7 +29,7 @@ Template for developing Telegram bot in Django + Aiogram on ASGI server.
 <li>Install docker and docker-compose-plugin on the server;</li>
 <li>Clone the repository to your server;</li>
 <li>Create the file `/infra/.env`. The template for filling the file is in /infra/.env.example;</li>
-<li>Go to the infra/certbot/ folder and get certificates in Let's Encrypt by running the script `sudo ./init-letsencrypt.sh`</li>
+<li>Get certificates in Let's Encrypt by running the script `sudo ./init-letsencrypt.sh`</li>
 <li>Stop the server with the `docker compose down` command</li>
 <li>In the `infra` folder, run the command `docker compose up -d -build`;</li>
 <br /><br />
