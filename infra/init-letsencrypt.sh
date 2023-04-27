@@ -95,12 +95,17 @@ for domain in ${!domains[*]}; do
     mkdir -p "$data_path/www"
 
     sudo docker compose -f $data_path/docker-compose.yml run --rm --entrypoint "\
-    certbot certonly --webroot --webroot-path /var/www --cert-name $domain_name $domain_args \
-    $staging_arg $email_arg \
+    certbot certonly --webroot --webroot-path /var/www/certbot --cert-name \
+    $domain_name \
+    $domain_args \
+    $staging_arg \
+    $email_arg \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal \
     --non-interactive" certbot
 
+    sudo docker compose -f $data_path/docker-compose.yml down
+    
   fi
 done

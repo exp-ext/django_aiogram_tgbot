@@ -10,7 +10,7 @@ services:
     volumes:
       - ./:/etc/nginx/templates:rw
       - ./conf/:/etc/letsencrypt/:ro
-      - ./www/:/var/www/:ro
+      - ./www/:/var/www/certbot/:ro
     env_file:
       - ../.env
 
@@ -20,5 +20,5 @@ services:
     restart: unless-stopped    
     volumes:
       - ./conf/:/etc/letsencrypt/:rw
-      - ./www/:/var/www/:rw
+      - ./www/:/var/www/certbot/:rw
 
