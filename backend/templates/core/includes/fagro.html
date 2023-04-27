@@ -1,0 +1,27 @@
+{% load static %}
+
+{% block title %} 404 error 🥶{% endblock %}
+
+{% block head %}  
+    <link rel="stylesheet" href="{% static 'css/fagro.css' %}">
+{% endblock %}
+
+
+<!-- partial:index.partial.html -->
+<div class="content">
+    <canvas class="snow" id="snow"></canvas>
+    <div class="main-text">
+      <h1>О боже!.<br/>Эта страница куда-то пропала.</h1><a class="home-link" href="{% url 'index' %}">На главную.</a>
+    </div>
+    <div class="ground">
+      <div class="mound"> 
+        <div class="mound_text">404</div>
+        <div class="mound_spade"></div>
+      </div>
+    </div>
+  </div>
+
+
+{% block javascript %}
+  <script  src="{% static 'js/fagro.js' %}"></script>
+{% endblock %}

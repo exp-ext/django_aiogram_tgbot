@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load user_agents %}
+
+{% block title %}Custom 404{% endblock %}
+{% block head %}  
+  <meta name="description" content="Такой страницы не существует 😕"/>  
+{% endblock %}
+
+{% block content %}
+
+  {% if request|is_mobile %}
+    {% include 'core/includes/space.html' %}
+  {% else %}
+    {% include 'core/includes/gears404.html' %}
+  {% endif %}
+  
+{% endblock %} 

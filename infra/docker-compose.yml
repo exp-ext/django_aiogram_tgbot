@@ -1,0 +1,98 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:13.10-alpine
+    container_name: backend_db
+    restart: unless-stopped
+    volumes:
+      - postgresql_volume:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wsgi:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    container_name: backend_wsgi
+    restart: always
+    command: ./config/wsgi/entrypoint.sh
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/app/static/:rw
+      - media_volume:/app/media/:rw
+      - cache_pip_volume:/root/.cache/pip/:rw
+      - cache_apt_volume:/var/cache/apt/archives/:rw
+    env_file:
+      - ./.env    
+    depends_on:
+      db:
+        condition: service_healthy
+
+  asgi:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+    container_name: backend_asgi
+    restart: always
+    command: ./config/asgi/entrypoint.sh
+    expose:
+      - 8080
+    volumes:
+      - static_volume:/app/static/:rw
+      - media_volume:/app/media/:rw
+      - cache_pip_volume:/root/.cache/pip/:rw
+      - cache_apt_volume:/var/cache/apt/archives/:rw
+    env_file:
+      - ./.env      
+    depends_on:
+      - wsgi
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
+        DEBUG: ${DEBUG}
+    container_name: backend_nginx
+    volumes:
+      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - ./certbot/www/:/var/www/:ro
+      - static_volume:/var/html/static/:rw
+      - media_volume:/var/html/media/:rw
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    env_file:
+      - ./.env
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - wsgi
+      - asgi
+
+  certbot:
+    image: certbot/certbot
+    container_name: backend_certbot
+    restart: unless-stopped    
+    volumes:
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./certbot/www/:/var/www/:rw
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    
+volumes:
+  postgresql_volume:
+  static_volume:
+  media_volume:
+  cache_pip_volume:
+  cache_apt_volume:

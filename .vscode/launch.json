@@ -1,0 +1,58 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django WSGI",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/manage.py",
+            "args": [
+                "runserver",
+                "127.0.0.1:8000",
+            ],
+            "django": true,
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Django ASGI",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/backend/",
+            "module": "uvicorn",
+            "args": [
+                "backend.asgi:application",
+                "--host", "127.0.0.1",
+                "--port", "8080",
+                "--reload",
+                "--log-level", "info"
+            ],
+        },
+        {
+            "name": "Python: unytests",
+            "type": "python",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/backend/",
+            "program": "manage.py",
+            "args": [
+                "test",
+                "-v2"               
+            ],
+            "django": true,
+            "justMyCode": true
+        }, 
+        {
+            "name": "Python: Set_IP",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/manage.py",
+            "args": [
+                "set_webhook"
+            ],
+            "django": true,
+            "justMyCode": true
+        },  
+    ]
+}
