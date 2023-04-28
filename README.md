@@ -1,6 +1,6 @@
-<h2>Django aiogram tgbot</h2>
+<h2>Django Aiogram tgbot</h2>
 
-<p>Template for developing Telegram bot in Django + Aiogram on ASGI server.</p
+<p>Template for developing Telegram bot on Django with Aiogram on ASGI server.</p
 
 ![статус](https://github.com/exp-ext/django_aiogram_tgbot/actions/workflows/backend.yml/badge.svg?event=push)
 

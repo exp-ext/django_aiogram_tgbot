@@ -2,7 +2,7 @@ from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from ...loader import bot, check_tokens
+from ...handlers import bot, check_tokens
 
 DOMAIN_URL = settings.DOMAIN_NAME
 TELEGRAM_TOKEN = settings.TELEGRAM_TOKEN

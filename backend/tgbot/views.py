@@ -3,12 +3,11 @@ import json
 from typing import Any, Dict
 
 from aiogram import Bot, Dispatcher, types
-from asgiref.sync import async_to_sync
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.utils.decorators import classonlymethod
 from django.views import View
 
-from .loader import bot, dp
+from .handlers import bot, dp
 
 
 class TelegramBotWebhookView(View):

@@ -4,7 +4,7 @@ from aiogram_unittest import Requester
 from aiogram_unittest.handler import MessageHandler
 from aiogram_unittest.types.dataset import MESSAGE
 
-from ..loader import echo
+from ..handlers import echo
 
 
 class TestHandlers(unittest.IsolatedAsyncioTestCase):
