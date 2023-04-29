@@ -8,11 +8,14 @@ from ..handlers import echo
 
 
 class TestHandlers(unittest.IsolatedAsyncioTestCase):
+    """
+    https://github.com/OCCCAS/aiogram_unittest/blob/master/examples/example_tests.py
+    """
 
     async def test_echo(self):
         request = Requester(request_handler=MessageHandler(echo))
         calls = await request.query(
-            message=MESSAGE.as_object(text="Hello, Bot!")
+            message=MESSAGE.as_object(text='Hello, Bot!')
         )
         answer_message = calls.send_message.fetchone().text
         self.assertEqual(answer_message, 'Hello, Bot!')
